@@ -35,7 +35,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## e-Commerce App features
 
-# Db
+# Database
 
 db using postgresql on Railway
 Using prisma to create models.
@@ -45,3 +45,33 @@ Using prisma to create models.
 
 - Following the step in the webpage
   https://next-auth.js.org/v3/adapters/prisma
+
+  # Stripe
+
+- Install Stripe in the terminal
+- Set an account. Save your keys on you .env.local
+- Ser another colum in the user table with stripeCostumerId
+- Add and event to our Next Auth. That event will create a user inside Stripe.
+  createUser: async ({ user }) => {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+  apiVersion: "2022-11-15",
+  });
+  },
+- Create a costumer
+  if (user.email && user.name) {
+  const costumer = stripe.customers.create({
+  email: user.email,
+  name: user.name,
+  });
+
+  - Update our prisma user with the stripeCostumerId
+    - run "npx prisma generate"
+  - Add function inside the if that checks the user`s email and name
+    await prisma.user.update({
+    where: {
+    id: user.id,
+    },
+    data: {
+    stripeCustomerId: (await costumer).id,
+    },
+    });
