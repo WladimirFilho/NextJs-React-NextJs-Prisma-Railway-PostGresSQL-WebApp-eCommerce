@@ -32,3 +32,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## e-Commerce App features
+
+# Db
+
+db using postgresql on Railway
+Using prisma to create models.
+
+- Prisma Migrate (npx prisma migrate dev) to insert new models
+  Using NextAuth and Google provider to have authentication
+
+- Following the step in the webpage
+  https://next-auth.js.org/v3/adapters/prisma

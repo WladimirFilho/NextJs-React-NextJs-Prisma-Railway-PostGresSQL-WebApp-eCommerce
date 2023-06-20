@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "types": ["node", "lodash", "express"],
     "paths": {
       "@/*": ["./**/*"]
-    }
+    },
+    "include": ["src/**/*"]
   }
 }
