@@ -75,3 +75,50 @@ Using prisma to create models.
     stripeCustomerId: (await costumer).id,
     },
     });
+
+  # Changes to out Api Route
+
+  - Rename the NextAuth instance. And remove the parentheses.
+    export const authOptions = ...
+    export default NextAuth(options);
+
+  # Creating our Navbar
+
+  - Create a Nav file and place inside the Layout.
+  - Inside Layout file, implement a Fetch on the user. Make the function RootLayout async and implement the code bellow.
+    `import { getServerSession } from "next-auth/next";
+import { authOptions } from "../pages/api/auth/[...nextauth]";
+const session = await getServerSession(authOptions);`
+
+  - Session is a type. So we receive user, as type Session, inside of Nav, so we can read inside component
+    `<Nav user={session?.user} expires={session.expires} />`
+
+  - Create a button to sign In
+    `
+    {/_ If the user is not signed in _/}
+    <ul>
+      <li>Products</li>
+      {!user && (
+        <li>
+          <button onClick={() => signIn()}>Sing in</button>
+        </li>
+      )}
+    </ul> `
+
+  ` {/* If the user is  signed in */}
+        {user && (
+          <li>
+            <Image
+              src={user?.image as string}
+              alt={user?.name as string}
+              width={48}
+              height={48}
+            />
+          </li>`
+
+  - Add google domain to have the image profile from an outside source
+    `const nextConfig = {
+  images: {
+    domains: ["lh3.googleusercontent.com"],
+  },
+};`
